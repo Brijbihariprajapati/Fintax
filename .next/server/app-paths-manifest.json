@@ -1,0 +1,8 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/about/page": "app/about/page.js",
+  "/services/payroll-processing/page": "app/services/payroll-processing/page.js",
+  "/contact-us/page": "app/contact-us/page.js",
+  "/services/human-capital-professional-development/page": "app/services/human-capital-professional-development/page.js"
+}
