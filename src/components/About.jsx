@@ -1,6 +1,6 @@
 "use client";
 import { motion } from 'framer-motion';
-import logo from '../assets/Logo.png';
+const logo = '../assets/Logo.png';
 
 const About = () => {
   return (

@@ -1,8 +1,8 @@
-// File: C:\Users\Dell\Desktop\glozon-fintax\src\app\services\human-capital-professional-development\page.jsx
-import * as entry from '../../../../../src/app/services/human-capital-professional-development/page.js'
+// File: C:\Users\Dell\Desktop\glozon-fintax\src\app\services\audit-support-assurance\page.jsx
+import * as entry from '../../../../../src/app/services/audit-support-assurance/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
-type TEntry = typeof import('../../../../../src/app/services/human-capital-professional-development/page.js')
+type TEntry = typeof import('../../../../../src/app/services/audit-support-assurance/page.js')
 
 type SegmentParams<T extends Object = any> = T extends Record<string, any>
   ? { [K in keyof T]: T[K] extends string ? string | string[] | undefined : never }

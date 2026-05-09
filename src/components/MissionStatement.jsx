@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import missionBg from '../assets/mission.jpg';
+const missionBg =  '../assets/mission.jpg';
 
 const Counter = ({ target }) => {
   const [count, setCount] = useState(0);
@@ -14,7 +14,7 @@ const Counter = ({ target }) => {
     let start = 0;
     const duration = 2000; // 2 seconds
     const increment = target / (duration / 16); // 60fps
-
+    
     const timer = setInterval(() => {
       start += increment;
       if (start >= target) {

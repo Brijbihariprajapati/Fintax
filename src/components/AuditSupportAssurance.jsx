@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import vectorImg from '../assets/Audit Support & Assurance.jpg';
+const vectorImg = '../assets/Audit Support & Assurance.jpg';
 
 const AuditSupportAssurance = () => {
   return (

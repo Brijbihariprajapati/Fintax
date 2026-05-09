@@ -1,11 +1,11 @@
 "use client";
 import { motion } from 'framer-motion';
-import james from '../assets/James Jorden.jpg';
-import halen from '../assets/Halen Brook.jpg';
-import david from '../assets/David Boom.jpg';
-import kiara from '../assets/Kiara Cramen.jpg';
-import rayan from '../assets/Rayan Morgan.jpg';
-import mark from '../assets/Mark Rogan.jpg';
+const james = '../assets/James Jorden.jpg';
+const halen =  '../assets/Halen Brook.jpg';
+const david = '../assets/David Boom.jpg';
+const kiara =  '../assets/Kiara Cramen.jpg';
+const rayan = '../assets/Rayan Morgan.jpg';
+const mark =  '../assets/Mark Rogan.jpg';
 
 const Testimonials = () => {
   const testimonials = [

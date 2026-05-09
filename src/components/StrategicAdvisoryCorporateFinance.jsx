@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import vectorImg from '../assets/Strategic Advisory & Corporate Finance.jpg';
+const vectorImg =  '../assets/Strategic Advisory & Corporate Finance.jpg';
 
 const StrategicAdvisoryCorporateFinance = () => {
   return (

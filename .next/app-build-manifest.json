@@ -16,25 +16,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/about/page.js"
     ],
-    "/services/payroll-processing/page": [
+    "/services/audit-support-assurance/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/services/payroll-processing/page.js"
+      "static/chunks/app/services/audit-support-assurance/page.js"
     ],
     "/contact-us/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/contact-us/page.js"
-    ],
-    "/services/human-capital-professional-development/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/services/human-capital-professional-development/page.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

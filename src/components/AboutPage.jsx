@@ -5,26 +5,18 @@ import Link from 'next/link';
 import MissionStatement from './MissionStatement';
 
 // Assets
-import logo from '../assets/Logo.png';
-import headerBg from '../assets/navbarbackground.jpg';
-import ramanImg from '../assets/raman.jpeg';
-import roshanImg from '../assets/rosdan.png';
-import krishnaImg from '../assets/krishna.png';
+
+const logo = '../assets/Logo.png';
+const headerBg = '../assets/navbarbackground.jpg';
+const ramanImg = '/assets/Raman.png';
+const roshanImg = '/assets/rosdan.png';
+const krishnaImg = '/assets/krishna.png';
 
 const AboutPage = () => {
   return (
     <div className="bg-white min-h-screen">
       {/* Header Banner */}
-      <div 
-        className="relative h-64 md:h-80 w-full flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: `url(${headerBg})` }}
-      >
-        <div className="absolute inset-0 bg-blue-900/60"></div>
-        <div className="relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">About Us</h1>
-          <div className="w-24 h-1 bg-pink-500 mx-auto rounded-full"></div>
-        </div>
-      </div>
+
       
       {/* 1. Discover Section */}
       <section className="py-20 lg:py-28 container mx-auto px-4 sm:px-6 lg:px-8">

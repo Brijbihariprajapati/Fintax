@@ -1,6 +1,6 @@
 "use client";
 import { motion } from 'framer-motion';
-import whyChooseUsImg from '../assets/Why-choose-us-150x150.png';
+ const whyChooseUsImg =  '../assets/Why-choose-us-150x150.png';
 
 const WhyChooseUs = () => {
   const reasons = [

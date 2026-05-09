@@ -1,12 +1,12 @@
 "use client";
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import img1 from '../assets/Managed-Accounting-Financial-Reporting-Vector-image1-scaled.jpg';
-import img2 from '../assets/Taxation & Regulatory Advisory.jpg';
-import img3 from '../assets/Audit Support & Assurance.jpg';
-import img4 from '../assets/Corporate Secretarial & Entity Formation.jpeg';
-import img5 from '../assets/Global Payroll Administration.jpg';
-import img6 from '../assets/Strategic Advisory & Corporate Finance.jpg';
+const img1 = '../assets/Managed-Accounting-Financial-Reporting-Vector-image1-scaled.jpg';
+const img2 = '../assets/Taxation & Regulatory Advisory.jpg';
+const img3 = '../assets/Audit Support & Assurance.jpg';
+const img4 = '../assets/Corporate Secretarial & Entity Formation.jpeg';
+const img5 =  '../assets/Global Payroll Administration.jpg';
+const img6 =  '../assets/Strategic Advisory & Corporate Finance.jpg';
 
 const Services = () => {
   const services = [

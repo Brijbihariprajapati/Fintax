@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import vectorImg from '../assets/Global Payroll Administration.jpg';
+const vectorImg = '../assets/Global Payroll Administration.jpg';
 
 const PayrollProcessingAdministration = () => {
   return (

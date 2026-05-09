@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import vectorImg from '../assets/Human Capital & Professional Development.jpg';
+const vectorImg =  '../assets/Human Capital & Professional Development.jpg';
 
 const HumanCapitalProfessionalDevelopment = () => {
   return (

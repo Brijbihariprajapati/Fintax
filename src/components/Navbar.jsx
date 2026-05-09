@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import gfaLogo from '../assets/GFA Stamp.png';
-import headerBanner from '../assets/homepage banner.3.jpg';
+const gfaLogo = '../assets/GFA Stamp.png';
+const headerBanner = '../assets/homepage banner.3.jpg';
 
 const Navbar = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
