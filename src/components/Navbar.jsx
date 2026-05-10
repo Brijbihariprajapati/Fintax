@@ -1,14 +1,17 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 const gfaLogo = '../assets/GFA Stamp.png';
 const headerBanner = '../assets/homepage banner.3.jpg';
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const isServicesSection = pathname.startsWith('/services');
   const services = [
     { name: "Accounting & Financial Reporting", path: "/services/accounting-financial-reporting" },
     { name: "Taxation & Regulatory Advisory", path: "/services/taxation-regulatory-advisory" },
@@ -47,19 +50,20 @@ const Navbar = () => {
 
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex space-x-6 items-center text-gray-800 font-bold text-[14px] uppercase tracking-wide">
-            <Link href="/" className="hover:text-blue-600 transition-colors relative group">
+            <Link href="/" className={`transition-colors relative group ${pathname === '/' ? 'text-blue-600' : 'hover:text-blue-600'}`}>
               Home
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300 ${pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
             </Link>
-            <Link href="/about" className="hover:text-blue-600 transition-colors relative group">
+            <Link href="/about" className={`transition-colors relative group ${pathname === '/about' ? 'text-blue-600' : 'hover:text-blue-600'}`}>
               About
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300 ${pathname === '/about' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
             </Link>
             
             {/* Services Dropdown */}
             <div className="relative group">
               <button 
-                className="flex items-center hover:text-blue-600 transition-colors py-2 uppercase font-bold"
+                type="button"
+                className={`relative flex items-center transition-colors py-2 uppercase font-bold ${isServicesSection ? 'text-blue-600' : 'hover:text-blue-600'}`}
                 onMouseEnter={() => setIsServicesOpen(true)}
                 onMouseLeave={() => setIsServicesOpen(false)}
               >
@@ -67,6 +71,7 @@ const Navbar = () => {
                 <svg className={`w-4 h-4 ml-1 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
+                <span className={`absolute bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300 ${isServicesSection ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
               </button>
 
               {/* Dropdown Menu */}
@@ -87,7 +92,7 @@ const Navbar = () => {
                           key={index}
                           whileHover={{ x: 5 }}
                         >
-                          <Link href={service.path} className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors" onClick={() => setIsServicesOpen(false)}>
+                          <Link href={service.path} className={`block px-4 py-2.5 text-sm transition-colors ${pathname === service.path ? 'bg-blue-50 text-blue-600 font-semibold' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'}`} onClick={() => setIsServicesOpen(false)}>
                             {service.name}
                           </Link>
                         </motion.li>
@@ -98,17 +103,17 @@ const Navbar = () => {
               </AnimatePresence>
             </div>
 
-            <Link href="/" className="hover:text-blue-600 transition-colors relative group">
+            <Link href="/career" className={`transition-colors relative group ${pathname === '/career' ? 'text-blue-600' : 'hover:text-blue-600'}`}>
               Career
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300 ${pathname === '/career' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
             </Link>
-            <Link href="/contact-us" className="text-pink-500 hover:text-pink-600 transition-colors relative group">
+            <Link href="/contact-us" className={`transition-colors relative group ${pathname === '/contact-us' ? 'text-pink-600' : 'text-gray-800 hover:text-pink-600'}`}>
               Contact
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
+              <span className={`absolute -bottom-1 left-0 h-0.5 transition-all duration-300 ${pathname === '/contact-us' ? 'w-full bg-pink-600' : 'w-0 bg-pink-600 group-hover:w-full'}`}></span>
             </Link>
-            <Link href="/" className="hover:text-blue-600 transition-colors relative group">
+            <Link href="/client-onboarding" className={`transition-colors relative group ${pathname === '/client-onboarding' ? 'text-blue-600' : 'hover:text-blue-600'}`}>
               Client Onboarding
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300 ${pathname === '/client-onboarding' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
             </Link>
             
             {/* Email Icon */}
@@ -165,23 +170,23 @@ const Navbar = () => {
             className="lg:hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 overflow-hidden shadow-lg z-40"
           >
             <div className="px-4 py-4 space-y-2 uppercase text-sm font-bold tracking-wide">
-              <Link href="/" className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md">Home</Link>
-              <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md">About</Link>
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className={`block px-3 py-2 rounded-md ${pathname === '/' ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'}`}>Home</Link>
+              <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className={`block px-3 py-2 rounded-md ${pathname === '/about' ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'}`}>About</Link>
               
               <div className="px-3 py-2">
-                <div className="text-blue-600 mb-2">Services</div>
+                <div className={`mb-2 ${isServicesSection ? 'text-blue-600' : 'text-gray-800'}`}>Services</div>
                 <div className="pl-4 space-y-2 border-l-2 border-blue-100 normal-case font-normal">
                   {services.map((service, index) => (
-                    <Link key={index} href={service.path} onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-gray-600 hover:text-blue-600">
+                    <Link key={index} href={service.path} onClick={() => setIsMobileMenuOpen(false)} className={`block py-1 ${pathname === service.path ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-blue-600'}`}>
                       {service.name}
                     </Link>
                   ))}
                 </div>
               </div>
               
-              <Link href="/" className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md">Career</Link>
-              <Link href="/contact-us" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 text-pink-500 hover:text-pink-600 hover:bg-pink-50 rounded-md">Contact</Link>
-              <Link href="/" className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md">Client Onboarding</Link>
+              <Link href="/career" onClick={() => setIsMobileMenuOpen(false)} className={`block px-3 py-2 rounded-md ${pathname === '/career' ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'}`}>Career</Link>
+              <Link href="/contact-us" onClick={() => setIsMobileMenuOpen(false)} className={`block px-3 py-2 rounded-md ${pathname === '/contact-us' ? 'text-pink-600 bg-pink-50' : 'text-gray-700 hover:text-pink-600 hover:bg-pink-50'}`}>Contact</Link>
+              <Link href="/client-onboarding" onClick={() => setIsMobileMenuOpen(false)} className={`block px-3 py-2 rounded-md ${pathname === '/client-onboarding' ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'}`}>Client Onboarding</Link>
             </div>
           </motion.div>
         )}

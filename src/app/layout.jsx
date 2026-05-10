@@ -2,6 +2,7 @@
 import '../index.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Providers } from './providers';
 
 export const metadata = {
   title: 'Glozon FinTax & Advisory',
@@ -17,13 +18,15 @@ export default function RootLayout({ children }) {
         <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css' />
       </head>
       <body>
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-        </div>
+        <Providers>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </Providers>
       </body>
     </html>
   );

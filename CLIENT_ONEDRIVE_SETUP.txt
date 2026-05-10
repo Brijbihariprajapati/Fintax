@@ -1,0 +1,71 @@
+================================================================================
+FOR THE CLIENT — Connect the website form to your Microsoft 365 OneDrive
+================================================================================
+
+What we need from you (one item):
+  • The HTTP POST URL from a Power Automate flow you create (see steps below).
+  • We do NOT need your NestNepal / hosting password.
+  • We do NOT need Azure Tenant ID / Client Secret — only the flow URL.
+
+You need: a Microsoft 365 work or business account that can use OneDrive and Power Automate.
+
+Steps (about 10–15 minutes):
+  1. Go to https://powerautomate.microsoft.com and sign in with your Microsoft 365 account
+     (the same organisation where you want files in OneDrive).
+
+  2. Create an automated cloud flow.
+
+  3. Trigger: search for "When an HTTP request is received".
+     • Method: POST
+     • Request body JSON schema: use "Generate from sample" and paste a sample payload, or use a
+       simple schema that includes at least: firstName, lastName, email, phone, dob, folder,
+       fileBaseName, signaturePngBase64, and the other form fields you care about.
+
+  4. Add action: "Create file" → choose "OneDrive for Business".
+     • Sign in with the account whose OneDrive should store submissions.
+     • Folder path: use expressions like
+         concat(triggerBody()?['folder'], '/', triggerBody()?['fileBaseName'], '.json')
+     • File content: use an expression to stringify the form fields, e.g. string(body) or build JSON
+       from dynamic content (all fields except signaturePngBase64 if you prefer).
+
+  5. Add a second "Create file" for the signature PNG:
+     • File name: concat(triggerBody()?['folder'], '/', triggerBody()?['fileBaseName'], '_signature.png')
+     • File content: base64(triggerBody()?['signaturePngBase64'])
+       (In Power Automate the action may be named "Convert from base64" / compose then use binary.)
+
+  6. Save the flow. Open the HTTP trigger card and copy the full HTTP POST URL (it contains sig=...).
+     Send that URL securely to your developer. They will set POWER_AUTOMATE_WEBHOOK_URL in .env.local
+
+  7. Turn the flow ON.
+
+Hosting / domain accounts (e.g. NestNepal) cannot replace this — OneDrive is Microsoft 365 only.
+
+================================================================================
+MESSAGE YOU CAN SEND TO THE CLIENT (copy below)
+================================================================================
+
+Subject: One-time setup — save website forms to your Microsoft 365 OneDrive
+
+Hi,
+
+Our website form is set up to save each submission only to Microsoft 365 OneDrive.
+
+We do not use your website hosting login for this. Please do the following on your side:
+
+1) Use a Microsoft 365 account that has OneDrive (work or business).
+
+2) In Power Automate (powerautomate.microsoft.com), create a flow:
+   • Trigger: "When an HTTP request is received" (POST).
+   • Action: "Create file" in OneDrive for Business — sign in with the account where you want the files.
+   • Save a JSON file and a signature PNG using the data we send (field names include fileBaseName,
+     folder, signaturePngBase64, and all form fields).
+
+3) Copy the HTTP POST URL from that trigger and send it to us. We will add it to our server — you do
+   not need to share your Microsoft password with us.
+
+4) Make sure the flow is turned on.
+
+If you do not have Microsoft 365, you will need a license or another mailbox in your organisation that
+can use OneDrive and Power Automate.
+
+Thank you.

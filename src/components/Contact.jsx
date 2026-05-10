@@ -1,12 +1,47 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { toast } from 'sonner';
 const contactImg = '/assets/contactus.jpg';
 
 const Contact = () => {
-  const handleSubmit = (e) => {
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Message sent successfully! Admin will get this information.');
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    const fd = new FormData(form);
+    const payload = {
+      fullName: fd.get('fullName'),
+      email: fd.get('email'),
+      mobile: fd.get('mobile'),
+      subject: fd.get('subject'),
+      message: fd.get('message'),
+    };
+    setSending(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const msg = Array.isArray(data.details) ? data.details.join(' ') : (data.error || 'Could not send message.');
+        toast.error(msg);
+        return;
+      }
+      toast.success('Message sent. Our team will get back to you.');
+      form.reset();
+    } catch {
+      toast.error('Network error. Please try again.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -96,29 +131,34 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
                 <input 
                   type="text" 
+                  name="fullName"
                   placeholder="Full Name Surname" 
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                 />
                 <input 
                   type="email" 
+                  name="email"
                   placeholder="Email" 
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                 />
                 <input 
                   type="tel" 
+                  name="mobile"
                   placeholder="Mobile" 
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                 />
                 <input 
                   type="text" 
+                  name="subject"
                   placeholder="Subject" 
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                 />
                 <textarea 
+                  name="message"
                   placeholder="Message:" 
                   required
                   rows="4"
@@ -127,9 +167,10 @@ const Contact = () => {
                 <div className="flex justify-end pt-2">
                   <button 
                     type="submit" 
-                    className="px-8 py-2 border border-pink-500 text-gray-800 font-medium hover:bg-pink-50 transition-colors uppercase tracking-wide text-sm rounded-sm"
+                    disabled={sending}
+                    className="px-8 py-2 border border-pink-500 text-gray-800 font-medium hover:bg-pink-50 transition-colors uppercase tracking-wide text-sm rounded-sm disabled:opacity-60"
                   >
-                    SEND
+                    {sending ? 'Sending…' : 'SEND'}
                   </button>
                 </div>
               </form>

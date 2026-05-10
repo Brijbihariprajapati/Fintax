@@ -1,4 +1,4 @@
-// File: C:\Users\Dell\Desktop\glozon-fintax\src\app\about\page.jsx
+// File: C:\Users\Brij Bihari Prajapat\Desktop\New folder\glozon-fintax\src\app\about\page.jsx
 import * as entry from '../../../../src/app/about/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

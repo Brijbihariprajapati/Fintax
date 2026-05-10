@@ -1,6 +1,7 @@
 {
-  "/page": "app/page.js",
   "/about/page": "app/about/page.js",
-  "/services/audit-support-assurance/page": "app/services/audit-support-assurance/page.js",
+  "/client-onboarding/page": "app/client-onboarding/page.js",
+  "/page": "app/page.js",
+  "/career/page": "app/career/page.js",
   "/contact-us/page": "app/contact-us/page.js"
 }
