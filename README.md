@@ -1,16 +1,36 @@
-# React + Vite
+# Glozon FinTax & Advisory
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Next.js website for **Glozon FinTax & Advisory (P) Ltd.** — services pages, contact, and client tax authority onboarding with PDF generation and email delivery.
 
-Currently, two official plugins are available:
+## Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+cp .env.example .env.local
+```
 
-## React Compiler
+Edit `.env.local` (see `.env.example`):
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `RESEND_API_KEY` — from [Resend](https://resend.com)
+- `RESEND_FROM` — verified sender address
+- `TAX_AUTHORITY_EMAIL` — inbox for submitted authority PDFs (e.g. `gfa@glozonfintax.com`)
 
-## Expanding the ESLint configuration
+## Development
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000). Client onboarding: `/client-onboarding`.
+
+## Build
+
+```bash
+npm run build
+npm start
+```
+
+## Notes
+
+- Authority PDFs use `public/gfa-tax-authority-template.pdf` (official GFA blank form).
+- Secrets stay in `.env.local` only — never commit env files with real keys.
