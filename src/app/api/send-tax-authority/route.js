@@ -7,23 +7,35 @@ const DEFAULT_TO = "gfa@glozonfintax.com";
 const DEFAULT_FROM = "onboarding@resend.dev";
 const MAX_PDF_BYTES = 6 * 1024 * 1024;
 
+const EMAIL_RE = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
+
 /** Resend requires `email@domain.com` or `Name <email@domain.com>`. */
 function resolveResendFrom(raw) {
-  let v = trimStr(raw).replace(/^["']|["']$/g, "");
+  let v = trimStr(raw)
+    .replace(/^["']|["']$/g, "")
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'");
   if (!v) return DEFAULT_FROM;
 
   const named = v.match(/^(.+?)\s*<([^>]+)>$/);
   if (named) {
     const name = named[1].trim().replace(/^["']|["']$/g, "");
     const email = named[2].trim();
-    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return name ? `${name} <${email}>` : email;
-    }
+    if (EMAIL_RE.test(email)) return name ? `${name} <${email}>` : email;
   }
 
-  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return v;
+  if (EMAIL_RE.test(v)) return v;
 
-  return null;
+  const embedded = v.match(/[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+/);
+  if (embedded && EMAIL_RE.test(embedded[0])) return embedded[0];
+
+  console.warn(
+    "[send-tax-authority] RESEND_FROM is invalid on server; using default:",
+    DEFAULT_FROM,
+    "— raw value length:",
+    v.length
+  );
+  return DEFAULT_FROM;
 }
 
 function trimStr(v) {
@@ -143,18 +155,6 @@ export async function POST(request) {
   const { record, pdfBuffer } = parsed;
   const to = (process.env.TAX_AUTHORITY_EMAIL || DEFAULT_TO).trim();
   const from = resolveResendFrom(process.env.RESEND_FROM);
-  if (!from) {
-    return NextResponse.json(
-      {
-        error: "Invalid RESEND_FROM on server.",
-        details: [
-          'Set RESEND_FROM in Vercel to a plain email (e.g. onboarding@resend.dev) or Name <email@domain.com>.',
-          "If the value has spaces, paste the full line in Vercel without breaking at the first space.",
-        ],
-      },
-      { status: 503 }
-    );
-  }
 
   const resend = new Resend(apiKey);
   const stamp = Date.now();
