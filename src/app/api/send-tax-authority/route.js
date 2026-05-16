@@ -4,7 +4,27 @@ import { Resend } from "resend";
 export const runtime = "nodejs";
 
 const DEFAULT_TO = "gfa@glozonfintax.com";
+const DEFAULT_FROM = "onboarding@resend.dev";
 const MAX_PDF_BYTES = 6 * 1024 * 1024;
+
+/** Resend requires `email@domain.com` or `Name <email@domain.com>`. */
+function resolveResendFrom(raw) {
+  let v = trimStr(raw).replace(/^["']|["']$/g, "");
+  if (!v) return DEFAULT_FROM;
+
+  const named = v.match(/^(.+?)\s*<([^>]+)>$/);
+  if (named) {
+    const name = named[1].trim().replace(/^["']|["']$/g, "");
+    const email = named[2].trim();
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return name ? `${name} <${email}>` : email;
+    }
+  }
+
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return v;
+
+  return null;
+}
 
 function trimStr(v) {
   if (v == null) return "";
@@ -122,7 +142,19 @@ export async function POST(request) {
 
   const { record, pdfBuffer } = parsed;
   const to = (process.env.TAX_AUTHORITY_EMAIL || DEFAULT_TO).trim();
-  const from = process.env.RESEND_FROM?.trim() || "GFA Forms <onboarding@resend.dev>";
+  const from = resolveResendFrom(process.env.RESEND_FROM);
+  if (!from) {
+    return NextResponse.json(
+      {
+        error: "Invalid RESEND_FROM on server.",
+        details: [
+          'Set RESEND_FROM in Vercel to a plain email (e.g. onboarding@resend.dev) or Name <email@domain.com>.',
+          "If the value has spaces, paste the full line in Vercel without breaking at the first space.",
+        ],
+      },
+      { status: 503 }
+    );
+  }
 
   const resend = new Resend(apiKey);
   const stamp = Date.now();
