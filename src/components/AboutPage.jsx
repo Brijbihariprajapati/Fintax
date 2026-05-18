@@ -63,11 +63,11 @@ const AboutPage = () => {
       </section>
 
       {/* 2. Three Features Section */}
-      <section className="py-12 bg-white container mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      {/* <section className="py-12 bg-white container mx-auto px-4 sm:px-6 lg:px-8 mb-16"> */}
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           
           {/* Feature 1 */}
-          <motion.div 
+          {/* <motion.div 
             className="flex flex-col items-center text-center p-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -86,10 +86,10 @@ const AboutPage = () => {
                 Learn More About Our Services
               </button>
             </Link>
-          </motion.div>
+          </motion.div> */}
 
           {/* Feature 2 */}
-          <motion.div 
+          {/* <motion.div 
             className="flex flex-col items-center text-center p-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -108,10 +108,10 @@ const AboutPage = () => {
                 Learn More About Our Services
               </button>
             </Link>
-          </motion.div>
+          </motion.div> */}
 
           {/* Feature 3 */}
-          <motion.div 
+          {/* <motion.div 
             className="flex flex-col items-center text-center p-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -130,10 +130,10 @@ const AboutPage = () => {
                 Learn More About Our Services
               </button>
             </Link>
-          </motion.div>
+          </motion.div> */}
 
-        </div>
-      </section>
+        {/* </div>  */}
+      {/* </section> */}
 
       {/* 3. Mission Statement Banner */}
       <MissionStatement />
