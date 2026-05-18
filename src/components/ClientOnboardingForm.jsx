@@ -137,8 +137,12 @@ function SignatureField({ onSignatureChange }) {
   );
 }
 
-const DECLARATION =
-  "I declare that the information provided above is true and correct. I authorize Easy Tax and Accounting Services Pty Ltd, to represent me in relation to my taxation affairs, communicate with the ATO on my behalf, and lodge all necessary tax documents including overdue lodgements. I agree to pay the applicable service fee once my ATO lodgement or other accounting work is prepared and sent to me for review, regardless of whether I proceed with signing or the outcome differs from my expectations.";
+const COUNTRY_OPTIONS = ["Australia", "Nepal", "India", "Dubai"];
+
+const DECLARATION = [
+  "I declare that the information provided above is true and correct to the best of my knowledge and belief. I hereby authorize Glozon FinTax & Advisory Pvt. Ltd. (Nepal) and/or Aussie Support Network Pty Ltd T/A Easy Accountants & Advisory (Australia) to act on my behalf in relation to my taxation and accounting affairs, including communicating with the relevant tax authorities and other concerned government departments, and lodging all necessary tax returns, forms, and overdue submissions as required.",
+  "I further agree to pay the applicable professional service fees once my tax lodgement or other accounting work has been prepared and provided to me for review, irrespective of whether I proceed with signing the documents or whether the outcome differs from my expectations.",
+];
 
 export default function ClientOnboardingForm() {
   const [businessType, setBusinessType] = useState("individual");
@@ -166,12 +170,23 @@ export default function ClientOnboardingForm() {
     const lastName = String(fd.get("lastName") || "").trim();
     const email = String(fd.get("email") || "").trim();
     const phone = String(fd.get("phone") || "").trim();
+    const country = String(fd.get("country") || "").trim();
     const tfn = String(fd.get("tfn") || "").trim();
     const dob = String(fd.get("dob") || "").trim();
     const abn = String(fd.get("abn") || "").trim();
     const signatoryName = String(fd.get("signatoryName") || "").trim();
     const signDate = String(fd.get("signDate") || "").trim();
     const authorityConfirmed = fd.get("authorityConfirmed") === "on";
+
+    if (!country) {
+      toast.error("Please select a country.");
+      return;
+    }
+
+    if (businessType === "entity" && !abn) {
+      toast.error("Please enter ABN/Regd. No./Corporate ID.");
+      return;
+    }
 
     if (!authorityConfirmed) {
       toast.error("Please confirm the Authority to Act section.");
@@ -183,6 +198,7 @@ export default function ClientOnboardingForm() {
       lastName,
       email,
       phone,
+      country,
       businessType,
       tfn,
       dob: businessType === "individual" ? dob : "",
@@ -208,6 +224,7 @@ export default function ClientOnboardingForm() {
           lastName,
           email,
           phone,
+          country,
           businessType,
           tfn,
           dob: businessType === "individual" ? dob : "",
@@ -308,6 +325,19 @@ export default function ClientOnboardingForm() {
                   <label className={labelClass}>Contact no. *</label>
                   <input name="phone" type="tel" required className={inputClass} />
                 </div>
+                <div className="md:col-span-2">
+                  <label className={labelClass}>Country *</label>
+                  <select name="country" required className={inputClass} defaultValue="">
+                    <option value="" disabled>
+                      Select country…
+                    </option>
+                    {COUNTRY_OPTIONS.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </section>
 
@@ -341,7 +371,7 @@ export default function ClientOnboardingForm() {
                 {businessType === "individual" ? (
                   <>
                     <div>
-                      <label className={labelClass}>Tax file number (TFN) *</label>
+                      <label className={labelClass}>TFN/PAN/Tax ID Number *</label>
                       <input name="tfn" type="text" autoComplete="off" required className={inputClass} />
                     </div>
                     <div>
@@ -352,11 +382,11 @@ export default function ClientOnboardingForm() {
                 ) : (
                   <>
                     <div>
-                      <label className={labelClass}>Australian business number (ABN)</label>
-                      <input name="abn" type="text" autoComplete="off" maxLength={32} className={inputClass} />
+                      <label className={labelClass}>ABN/Regd. No./Corporate ID *</label>
+                      <input name="abn" type="text" autoComplete="off" required maxLength={32} className={inputClass} />
                     </div>
                     <div>
-                      <label className={labelClass}>Tax file number (TFN) *</label>
+                      <label className={labelClass}>TFN/PAN/Tax ID Number *</label>
                       <input name="tfn" type="text" autoComplete="off" required className={inputClass} />
                     </div>
                     <input type="hidden" name="dob" value="" />
@@ -387,9 +417,11 @@ export default function ClientOnboardingForm() {
 
             <section>
               <h3 className={sectionTitle}>Declaration</h3>
-              <p className="text-sm text-gray-700 leading-relaxed border border-gray-200 bg-gray-50 p-4 rounded-sm">
-                {DECLARATION}
-              </p>
+              <div className="text-sm text-gray-700 leading-relaxed border border-gray-200 bg-gray-50 p-4 rounded-sm space-y-4">
+                {DECLARATION.map((paragraph) => (
+                  <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+                ))}
+              </div>
             </section>
 
             <section>
