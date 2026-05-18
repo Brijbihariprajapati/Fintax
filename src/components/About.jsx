@@ -51,7 +51,7 @@ const About = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 tracking-tight leading-tight">
-              Discover <span className="text-green-500">Glozon</span> <span className="text-blue-500">FinTax</span> & <span className="text-yellow-500">Advisory</span>
+              Discover <span style= {{color: '#036B09'}}>Glozon</span> <span style={{color: '#2A17B4'}}>FinTax</span> & <span style={{color: '#FFAB09'}}>Advisory</span>
             </h2>
             <div className="text-gray-600 space-y-6 text-lg">
               <p>

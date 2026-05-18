@@ -47,7 +47,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            <span className="text-green-400">Glozon</span> <span className="text-blue-400">FinTax</span> & Advisory – Excellence In Global Finance & Taxation
+            <span style={{color: '#036B09'}}>Glozon</span> <span style={{color: '#2A17B4'}}>FinTax</span> & Advisory – Excellence In Global Finance & Taxation
           </h1>
           
           <motion.p 
