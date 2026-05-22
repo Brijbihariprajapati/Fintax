@@ -3,8 +3,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-const gfaLogo = '../assets/GFA Stamp.png';
-const headerBanner = '../assets/homepage banner.3.jpg';
+import { publicAsset } from "@/lib/publicAsset";
+
+const MotionLink = motion.create(Link);
+
+const gfaLogo = publicAsset("GFA Stamp.png");
+const headerBanner = publicAsset("homepage banner.3.jpg");
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -39,14 +43,14 @@ const Navbar = () => {
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-6">
         <nav className="bg-white shadow-lg flex justify-between items-center py-2 px-4 rounded-sm">
           {/* Logo */}
-          <motion.Link 
-            href="/" 
-            className="flex items-center gap-2"
+          <MotionLink
+            href="/"
+            className="flex items-center gap-2 shrink-0"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <img src={gfaLogo} alt="GFA Logo" className="h-12 md:h-14 lg:h-16 w-auto object-contain" />
-          </motion.Link>
+          </MotionLink>
 
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex space-x-6 items-center text-gray-800 font-bold text-[14px] uppercase tracking-wide">

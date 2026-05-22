@@ -140,8 +140,9 @@ function SignatureField({ onSignatureChange }) {
 const COUNTRY_OPTIONS = ["Australia", "Nepal", "India", "Dubai"];
 
 const DECLARATION = [
-  "I declare that the information provided above is true and correct to the best of my knowledge and belief. I hereby authorize Glozon FinTax & Advisory Pvt. Ltd. (Nepal) and/or Aussie Support Network Pty Ltd T/A Easy Accountants & Advisory (Australia) to act on my behalf in relation to my taxation and accounting affairs, including communicating with the relevant tax authorities and other concerned government departments, and lodging all necessary tax returns, forms, and overdue submissions as required.",
-  "I further agree to pay the applicable professional service fees once my tax lodgement or other accounting work has been prepared and provided to me for review, irrespective of whether I proceed with signing the documents or whether the outcome differs from my expectations.",
+  `I declare that the information provided above is true and correct to the best of my knowledge and belief. I hereby authorize Glozon FinTax & Advisory Pvt. Ltd. to act on my behalf in relation to my taxation and accounting affairs, including communicating with the relevant tax authorities and other concerned government departments, and lodging all necessary tax returns, forms, and overdue submissions as required.`,
+
+  `I further agree to pay the applicable professional service fees once my tax lodgement or other accounting work has been prepared and provided to me for review, irrespective of whether I proceed with signing the documents or whether the outcome differs from my expectations.`,
 ];
 
 export default function ClientOnboardingForm() {
