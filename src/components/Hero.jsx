@@ -7,19 +7,25 @@ import { publicAsset } from "@/lib/publicAsset";
 const SLIDE_INTERVAL_MS = 6000;
 
 const SLIDES = [
-  { file: "WhatsApp.jpeg", alt: "Glozon FinTax — global finance and taxation" },
-  { file: "homepage banner.1.jpg", alt: "Glozon FinTax advisory services" },
-  { file: "homepage banner.2.jpg", alt: "Glozon FinTax offshore solutions" },
-  { file: "homepage banner.3.jpg", alt: "Glozon FinTax excellence in taxation" },
+  { file: "tax1.jpg", alt: "Glozon FinTax — global finance and taxation" },
+  { file: "tax2.jpg", alt: "Glozon FinTax advisory services" },
+  { file: "tax3.jpg", alt: "Glozon FinTax offshore solutions" },
+  {
+    file: "tax1.jpg",
+    alt: "Glozon FinTax excellence in taxation",
+  },
 ].map(({ file, alt }) => ({ src: publicAsset(file), alt }));
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideCount = SLIDES.length;
 
-  const goToSlide = useCallback((index) => {
-    setCurrentSlide(((index % slideCount) + slideCount) % slideCount);
-  }, [slideCount]);
+  const goToSlide = useCallback(
+    (index) => {
+      setCurrentSlide(((index % slideCount) + slideCount) % slideCount);
+    },
+    [slideCount],
+  );
 
   const nextSlide = useCallback(() => {
     goToSlide(currentSlide + 1);
@@ -68,7 +74,9 @@ const Hero = () => {
               aria-current={i === currentSlide ? "true" : undefined}
               onClick={() => goToSlide(i)}
               className={`h-2.5 rounded-full transition-all ${
-                i === currentSlide ? "w-8 bg-pink-500" : "w-2.5 bg-white/60 hover:bg-white"
+                i === currentSlide
+                  ? "w-8 bg-pink-500"
+                  : "w-2.5 bg-white/60 hover:bg-white"
               }`}
             />
           ))}
@@ -105,8 +113,8 @@ const Hero = () => {
         >
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             <span style={{ color: "#036B09" }}>Glozon</span>{" "}
-            <span style={{ color: "#2A17B4" }}>FinTax</span> & Advisory – Excellence In Global
-            Finance & Taxation
+            <span style={{ color: "#2A17B4" }}>FinTax</span> &{" "}
+            <span style={{ color: "#FFAB09" }}>Advisory</span>
           </h1>
 
           <motion.p
@@ -115,10 +123,11 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            Glozon FinTax & Advisory (GFA) is a premier financial and taxation consultancy firm
-            headquartered in Lalitpur, Nepal. We specialize in providing comprehensive offshore and
-            outsourced services tailored specifically for firms and clients in Australia, India,
-            Dubai and Nepal.
+            Glozon FinTax & Advisory (GFA) is a premier financial and taxation
+            consultancy firm headquartered in Lalitpur, Nepal. We specialize in
+            providing comprehensive offshore and outsourced services tailored
+            specifically for firms and clients in Australia, India, Dubai and
+            Nepal.
           </motion.p>
 
           <motion.div

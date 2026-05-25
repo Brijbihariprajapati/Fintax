@@ -14,7 +14,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="text-xl font-bold text-orange-500 mb-6 tracking-wide">Glozon FinTax & Advisory</h3>
+            <h3 className="text-xl font-bold text-orange-500 mb-6 tracking-wide"><span style={{color: '#036B09'}}>Glozon</span> <span style={{color: '#2A17B4'}}>FinTax</span> & <span style={{color: '#FFAB09'}}>Advisory</span></h3>
             <p className="text-sm leading-relaxed mb-6 text-gray-400">
               Glozon FinTax & Advisory (GFA) is a premier financial and taxation consultancy firm headquartered in Lalitpur, Nepal. We specialize in providing comprehensive offshore and outsourced services tailored specifically for firms and clients in Australia, India, Dubai and Nepal.
             </p>
@@ -67,32 +67,32 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Column 3: Newsletter */}
+          {/* Column 3: Our Services */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h3 className="text-xl font-bold text-white mb-6 tracking-wide">Subscribe to our Newsletter</h3>
-            <p className="text-sm mb-6 text-gray-400 leading-relaxed">Stay updated with our latest financial insights, news, and exclusive offers.</p>
-            <form className="flex flex-col gap-4">
-              <div className="relative">
-                <input 
-                  type="email" 
-                  placeholder="Email Address" 
-                  className="w-full px-4 py-3 bg-gray-900 border border-gray-800 text-white rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all"
-                />
-              </div>
-              <motion.button 
-                type="button" 
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-pink-600 hover:bg-pink-700 text-white font-medium py-3 px-4 rounded-lg transition-colors shadow-lg"
-              >
-                Subscribe Now
-              </motion.button>
-            </form>
+            <h3 className="text-xl font-bold text-white mb-6 tracking-wide">Our Services</h3>
+            <ul className="space-y-4">
+              {[
+                { name: 'Accounting & Financial Reporting', path: '/services/accounting-financial-reporting' },
+                { name: 'Audit Support & Assurance', path: '/services/audit-support-assurance' },
+                { name: 'Corporate Secretarial', path: '/services/corporate-secretarial' },
+                { name: 'Human Capital & Professional Development', path: '/services/human-capital-professional-development' },
+                { name: 'Payroll Processing', path: '/services/payroll-processing' },
+                { name: 'Strategic Advisory', path: '/services/strategic-advisory' },
+                { name: 'Taxation & Regulatory Advisory', path: '/services/taxation-regulatory-advisory' }
+              ].map((service, index) => (
+                <li key={index}>
+                  <Link href={service.path} className="hover:text-orange-500 transition-colors flex items-center group">
+                    <span className="w-2 h-2 bg-orange-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-x-2 group-hover:translate-x-0"></span>
+                    <span className="transform group-hover:translate-x-1 transition-transform duration-300">{service.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </motion.div>
         </div>
 

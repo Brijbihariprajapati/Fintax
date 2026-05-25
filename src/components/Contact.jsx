@@ -42,12 +42,20 @@ function validateCountry(value) {
 
 function validateMobile(value) {
   const mobile = String(value || "").trim();
-  if (!mobile) return "Mobile number is required.";
+  if (!mobile) return "";
   if (/[a-zA-Z]/.test(mobile)) return "Only numbers and + - ( ) are allowed.";
   if (!PHONE_CHARS_RE.test(mobile)) return "Please enter a valid mobile number.";
   const digits = mobile.replace(/\D/g, "");
   if (digits.length < 8) return "Enter at least 8 digits (e.g. +977 9845971220).";
   if (digits.length > 15) return "Mobile number cannot exceed 15 digits.";
+  return "";
+}
+
+function validateSubject(value) {
+  const subject = String(value || "").trim();
+  if (!subject) return "";
+  if (subject.length < 3) return "Subject must be at least 3 characters.";
+  if (subject.length > 200) return "Subject must be 200 characters or less.";
   return "";
 }
 
@@ -75,9 +83,8 @@ function validateContactForm(fd) {
   const mobileErr = validateMobile(mobile);
   if (mobileErr) errors.mobile = mobileErr;
 
-  if (!subject) errors.subject = "Subject is required.";
-  else if (subject.length < 3) errors.subject = "Subject must be at least 3 characters.";
-  else if (subject.length > 200) errors.subject = "Subject must be 200 characters or less.";
+  const subjectErr = validateSubject(subject);
+  if (subjectErr) errors.subject = subjectErr;
 
   if (!message) errors.message = "Message is required.";
   else if (message.length < 10) errors.message = "Message must be at least 10 characters.";
@@ -224,8 +231,14 @@ const Contact = () => {
               transition={{ delay: 0.3 }}
               className="flex flex-col space-y-10 items-center text-center mt-8"
             >
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 rounded-full border-2 border-red-500 flex items-center justify-center mb-2">
+              <a
+                href={MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 px-4 py-4 rounded-lg hover:bg-slate-50"
+                title="Open in Google Maps"
+              >
+                <div className="w-16 h-16 rounded-full border-2 border-red-500 flex items-center justify-center mb-2 mx-auto">
                   <svg
                     className="w-8 h-8 text-red-500"
                     fill="none"
@@ -247,19 +260,17 @@ const Contact = () => {
                   </svg>
                 </div>
                 <h3 className="text-red-500 font-bold text-lg mb-2">Address</h3>
-                <a
-                  href={MAPS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-700 text-sm max-w-xs text-center hover:text-blue-600 hover:underline underline-offset-2"
-                  title="Open in Google Maps"
-                >
+                <span className="text-gray-700 text-sm max-w-xs block mx-auto hover:text-blue-600 hover:underline underline-offset-2">
                   {OFFICE_ADDRESS}
-                </a>
-              </div>
+                </span>
+              </a>
 
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 rounded-full border-2 border-green-500 flex items-center justify-center mb-2">
+              <a
+                href={`tel:${OFFICE_PHONE_TEL}`}
+                className="block text-center group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 px-4 py-4 rounded-lg hover:bg-slate-50"
+                title="Call us"
+              >
+                <div className="w-16 h-16 rounded-full border-2 border-green-500 flex items-center justify-center mb-2 mx-auto">
                   <svg
                     className="w-8 h-8 text-green-500"
                     fill="none"
@@ -275,19 +286,22 @@ const Contact = () => {
                   </svg>
                 </div>
                 <h3 className="text-green-500 font-bold text-lg mb-2">Phone</h3>
-                <a
-                  href={`tel:${OFFICE_PHONE_TEL}`}
-                  className="text-gray-700 text-sm hover:text-green-600 hover:underline underline-offset-2"
-                  title="Call us"
-                >
+                <span className="text-gray-700 text-sm hover:text-green-600 hover:underline underline-offset-2 block">
                   {OFFICE_PHONE_DISPLAY}
-                </a>
-              </div>
+                </span>
+              </a>
 
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 rounded-full border-2 border-yellow-400 flex items-center justify-center mb-2">
+              <a
+                href={"mailto:" + OFFICE_EMAIL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 px-4 py-4 rounded-lg hover:bg-slate-50"
+                title="Email us"
+                aria-label="Send email to Glozon FinTax"
+              >
+                <div className="w-16 h-16 rounded-full border-2 border-yellow-400 flex items-center justify-center mb-2 mx-auto pointer-events-none">
                   <svg
-                    className="w-8 h-8 text-yellow-400"
+                    className="w-8 h-8 text-yellow-400 pointer-events-auto"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -301,13 +315,10 @@ const Contact = () => {
                   </svg>
                 </div>
                 <h3 className="text-yellow-400 font-bold text-lg mb-2">Email</h3>
-                <a
-                  href={`mailto:${OFFICE_EMAIL}`}
-                  className="text-blue-500 text-sm hover:underline underline-offset-2"
-                >
+                <span className="text-blue-500 text-sm hover:underline underline-offset-2 block">
                   {OFFICE_EMAIL}
-                </a>
-              </div>
+                </span>
+              </a>
             </motion.div>
 
             <motion.div
@@ -321,7 +332,7 @@ const Contact = () => {
                 Get In Touch
               </h3>
               <p className="text-sm text-gray-600 mb-6 text-center md:text-left">
-                All fields are required.
+                Phone and subject are optional.
               </p>
               <form noValidate onSubmit={handleSubmit} className="flex flex-col space-y-4">
                 <Field id="fullName" label="Full name" error={errors.fullName} required>
@@ -382,13 +393,12 @@ const Contact = () => {
                   </select>
                 </Field>
 
-                <Field id="mobile" label="Mobile number" error={errors.mobile} required>
+                <Field id="mobile" label="Mobile number" error={errors.mobile}>
                   <input
                     id="mobile"
                     type="tel"
                     name="mobile"
                     placeholder="+977 9845971220"
-                    required
                     autoComplete="tel"
                     inputMode="numeric"
                     maxLength={20}
@@ -400,13 +410,12 @@ const Contact = () => {
                   />
                 </Field>
 
-                <Field id="subject" label="Subject" error={errors.subject} required>
+                <Field id="subject" label="Subject" error={errors.subject}>
                   <input
                     id="subject"
                     type="text"
                     name="subject"
                     placeholder="How can we help?"
-                    required
                     maxLength={200}
                     className={fieldClass("subject")}
                     onChange={(e) => {

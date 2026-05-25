@@ -27,7 +27,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="relative w-full h-32 md:h-40 overflow-visible z-50">
+    <header className="sticky top-0 left-0 w-full h-32 md:h-40 overflow-visible z-50">
       {/* Background Banner */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img 
@@ -41,7 +41,7 @@ const Navbar = () => {
 
       {/* Navbar Container */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-6">
-        <nav className="bg-white shadow-lg flex justify-between items-center py-2 px-4 rounded-sm">
+        <nav className="bg-white/95 backdrop-blur-sm shadow-lg flex justify-between items-center py-2 px-4 rounded-sm">
           {/* Logo */}
           <MotionLink
             href="/"
